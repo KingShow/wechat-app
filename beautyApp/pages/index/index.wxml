@@ -1,0 +1,43 @@
+<!--index.wxml-->
+<view class="container">
+    <swiper 
+        indicator-dots="{{indicatorDots}}"
+        autoplay="{{autoplay}}" 
+        interval="{{interval}}" 
+        duration="{{duration}}" 
+        class="swiperlist">
+      <block wx:for="{{imgUrls}}" wx:key="*this">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image"/>
+        </swiper-item>
+      </block>
+    </swiper>
+</view>
+<view class="foodwrap">
+    <view class="foodmenu">
+        <text class="menuitem">热菜</text>
+        <text class="menuitem">凉菜</text>
+        <text class="menuitem">热菜</text>
+        <text class="menuitem">凉菜</text>
+        <text class="menuitem">热菜</text>
+        <text class="menuitem">凉菜</text>
+    </view>
+    <view class="foodlist">
+        <scroll-view 
+            scroll-y="true"
+            scroll-with-animation="true"
+            style="height: 900rpx;"
+            bindscrolltoupper="upper" 
+            bindscrolltolower="lower" 
+            bindscroll="scroll" 
+            scroll-into-view="{{toView}}" 
+            scroll-top="{{scrollTop}}">
+            <block wx:for="{{imgUrls}}" wx:key="*this" class="scroll-view-item">
+                <view id="{{'item'+index}}" bindtap="detail" class="fooditem">
+                    <image src="{{item}}"/>
+                    <text>凉菜</text>
+                </view>
+          </block>
+        </scroll-view>
+    </view>
+</view>

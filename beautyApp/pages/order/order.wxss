@@ -1,0 +1,19 @@
+.ordertype{
+    display: flex;
+    justify-content: space-around;
+    background-color: #f5f5f5;
+}
+.typeitem{
+    flex: 1;
+    text-align: center;
+    padding: 20rpx 40rpx;
+    font-size: 30rpx;
+    color: #666;
+    border-bottom: 5rpx solid #f5f5f5;
+
+}
+.ordertype .active{
+    border-bottom-color: #3cc51f
+}
+.orderwrap{
+}

@@ -1,0 +1,13 @@
+<view class="orderwrap">
+    <view class="ordertype">
+        <text 
+            bindtap="changeHook"
+            class="typeitem {{hook == item.id ? 'active' : ''}}"
+            id="{{item.id}}"
+            wx:for="{{type}}" 
+            wx:key="{{item.id}}">{{item.name}}</text>
+    </view>
+    <view class="orderlist">
+
+    </view>
+</view>

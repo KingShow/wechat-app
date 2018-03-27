@@ -1,0 +1,8 @@
+<view>
+    <block >
+        <view class="fooditem">
+            <image src="{{foodItem}}"/>
+            <text>凉菜</text>
+        </view>
+    </block>
+</view>
