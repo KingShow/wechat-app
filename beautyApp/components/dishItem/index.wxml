@@ -1,0 +1,6 @@
+<template name="dishItem">
+    <view data-id="{{id}}" bindtap="detail" class="fooditem">
+        <image src="{{src}}"/>
+        <text>{{name}}</text>
+    </view>
+</template>

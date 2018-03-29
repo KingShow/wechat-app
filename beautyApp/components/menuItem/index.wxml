@@ -1,0 +1,5 @@
+<template name="menuItem">
+    <view data-id="{{item.id}}" data-index="{{index}}" bindtap="menuClick" class="menuitem {{index === menuActive ? 'active' : ''}}">
+        <text>{{item.name}}</text>
+    </view>
+</template>
