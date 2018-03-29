@@ -2,54 +2,26 @@
 var app = getApp();
 Page({
   data: {
-    imgUrls: [],
-    indicatorDots: true,
-    autoplay: true,
-    interval: 5000,
-    duration: 1000,
-    circular: true,
-    vertical: true,
-    scrollTop: 0
+    dishsList: [],
+    menusList: [],
+    menuActive: 0,
   },
   //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
+  menuClick: function(event) {
+    this.setData({
+      menuActive: event.currentTarget.dataset.index,
     })
   },
   detail: function(event) {
-    var id = event.currentTarget.id;
+    var id = event.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '../detail/detail?id='+id+''
+      url: `../detail/detail?id=${id}`
     });
-  },
-  upper: function(e) {
-    console.log('upper',e)
-  },
-  lower: function(e) {
-    console.log('lower',e)
-  },
-  scroll: function(e) {
-    console.log('scroll',e)
-  },
-  tap: function(e) {
-    for (var i = 0; i < order.length; ++i) {
-      if (order[i] === this.data.toView) {
-        this.setData({
-          toView: order[i + 1]
-        })
-        break
-      }
-    }
-  },
-  tapMove: function(e) {
-    this.setData({
-      scrollTop: this.data.scrollTop + 10
-    })
   },
   onLoad: function () {
     this.setData({
-      imgUrls: app.globalData.imgUrls,
+      dishsList: app.globalData.dishsList,
+      menusList: app.globalData.menusList,
     });
   }
 })
