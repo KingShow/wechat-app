@@ -128,9 +128,23 @@ Page({
 * 模块只有通过 module.exports 或者 exports 才能对外暴露接口。
 * ES6转ES5使用import/export,小程序开发工具带有babel es6转es5设置，勾选即可
 * 注意： module.exports和exports 的区别
+
 ### 组件
-### 模板
 > 框架为开发者提供了一系列基础组件，开发者可以通过组合这些基础组件进行快速开发,详见 [小程序文档-组件](https://developers.weixin.qq.com/miniprogram/dev/component/) 
+
+### 模板
+>  wxml通过template可以实现复用,通过is属性动态决定渲染哪个模版, 并且有自己的作用域，只能使用传入的data(这点跟组件很相似）
+``` 
+<!-- item.wxml -->
+<template name="item">
+  <text>{{text}}</text>
+</template>
+
+<!-- index.wxml -->
+<import src="item.wxml"/>
+<template is="item" data="{{text: 'forbar'}}"/>
+``` 
+
 ### 自定义组件
 ### 微信小程序的开发结构
 ### 更好的调用接口
