@@ -124,8 +124,13 @@ Page({
 * 注意: 页面重定向（redirectTo）以及打开新页面（navigateTo），因为小程序限制了也页面栈最多只有5个元素，所以当你深度达到5个，再调用navigateTo想让新页面再入栈就会报错，所以官方建议是避免多层级的交互方式，或者使用wx.redirectTo
 
 ### 模块化
-### 模板
+> require加载机制不同于nodejs，加了一些限制，比如不能用绝对路径，也不支持node_modules，所以如果要使用node_modules的内容需要手动拷贝到目录里
+* 模块只有通过 module.exports 或者 exports 才能对外暴露接口。
+* ES6转ES5使用import/export,小程序开发工具带有babel es6转es5设置，勾选即可
+* 注意： module.exports和exports 的区别
 ### 组件
+### 模板
+> 框架为开发者提供了一系列基础组件，开发者可以通过组合这些基础组件进行快速开发,详见 [小程序文档-组件](https://developers.weixin.qq.com/miniprogram/dev/component/) 
 ### 自定义组件
 ### 微信小程序的开发结构
 ### 更好的调用接口
