@@ -29,3 +29,5 @@ App({
   globalData: 'I am global data'
 })
 ```  
+### Page实例生命周期
+
