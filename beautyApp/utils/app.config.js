@@ -1,3 +1,3 @@
 module.exports = {
-    DEVURL: 'http://localhost:9899'
+    DEVURL: 'http://localhost:7788'
 }
