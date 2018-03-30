@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 ano.DS_Store
 node_modules/
 npm-debug.log
+=======
+npm-debug.log
+nohup.out
+.out
+ano.DS_Store
+node_modules/
+>>>>>>> release/express-20180330
 */.idea/
 .idea/
