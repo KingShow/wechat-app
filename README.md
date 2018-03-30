@@ -144,10 +144,81 @@ Page({
 <import src="item.wxml"/>
 <template is="item" data="{{text: 'forbar'}}"/>
 ``` 
-
 ### 自定义组件
+> 小程序基础库版本 1.6.3 开始，小程序支持简洁的组件化编程
+
+* 类似于页面，一个自定义组件由 json wxml wxss js 4个文件组成。要编写一个自定义组件，首先需要在 json 文件中进行自定义组件声明（将 component 字段设为 true 可这一组文件设为自定义组件）：
+``` 
+{
+  "component": true
+}
+``` 
+
+* 在自定义组件的 js 文件中，需要使用 Component() 来注册组件，并提供组件的属性定义、内部数据和自定义方法。
+* 注意：在 properties 定义段中，属性名采用驼峰写法（propertyName）；在 wxml 中，指定属性值时则对应使用连字符写法（component-tag-name property-name="attr value"），应用于数据绑定时采用驼峰写法（attr="{{propertyName}}"）。
+``` 
+Component({
+  options: {
+    multipleSlots: true // 在组件定义时的选项中启用多slot支持
+  },
+  properties: {
+    // 这里定义了innerText属性，属性值可以在组件使用时指定
+    innerText: {
+      type: String, //属性类型
+      value: 'default value',//属性初始值
+      observer: function(newVal, oldVal){} //属性值被更改时的响应函数(可选)
+    }
+  },
+  data: {
+    // 这里是一些组件内部数据
+    someData: {}
+  },
+  methods: {
+    // 这里是一个自定义方法
+    customMethod: function(){}
+  }
+})
+``` 
+
+* 用已注册的自定义组件前，首先要在页面的 json 文件中进行引用声明。此时需要提供每个自定义组件的标签名和对应的自定义组件文件路径
+``` 
+{
+  "usingComponents": {
+    "component-tag-name": "path/to/the/custom/component"
+  }
+}
+``` 
+* 因为WXML节点标签名只能是小写字母、中划线和下划线的组合，所以自定义组件的标签名也只能包含这些字符。
+* 自定义组件也是可以引用自定义组件的，引用方法类似于页面引用自定义组件的方式（使用 usingComponents 字段）。
+* 自定义组件和使用自定义组件的页面所在项目根目录名不能以“wx-”为前缀，否则会报错。
+* 旧版本的基础库不支持自定义组件，此时，引用自定义组件的节点会变为默认的空节点。
+
 ### 微信小程序的开发结构
+> 不引入像wepy这种组件化框架或者引入状态管理方案，以下开发结构也很好
+```
+ |---model---------------跟业务逻辑相关的，跟数据交互的model
+     |---xxx.js
+ |---utils----------------可从业务逻辑中抽离处可复用工具
+     |---xxx.js
+ |---pages---------------微信小程序的各个page
+         |---xxx
+                 |---xxx.wxml
+                 |---xxx.wxss
+                 |---xxx.json
+                 |---xxx.js
+ |---components-----------可从page中抽离出的组件，有利于复用以及维护
+         |---xxx
+                 |---xxx.wxml
+                 |---xxx.wxss
+                 |---xxx.js
+ |---static----------------静态资源文件
+ |---app.js
+ |---app.json
+ |---app.wxss
+```
+
 ### 更好的调用接口
+> wx.request
 ### 微信小程序开发问题
    1，性能优化
    2，前后端独立开发
