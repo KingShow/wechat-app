@@ -224,6 +224,7 @@ Component({
 * 网络请求的 referer header 不可设置。其格式固定为 https://servicewechat.com/{appid}/{version}/page-frame.html，其中 {appid} 为小程序的 appid，{version} 为小程序的版本号，版本号为 0 表示为开发版、体验版以及审核版本，版本号为 devtools 表示为开发者工具，其余为正式版本。
 * 小程序进入后台运行后（非置顶聊天），如果 5s 内网络请求没有结束，会回调错误信息 fail interrupted；在回到前台之前，网络请求接口调用都会无法调用。
 * 微信小程序默认情况下dataType为'json'，会尝试对响应的数据做一次JSON.parse
+* 将接口promise化可以减少回调，代码看起来也会更加清晰, 在某些机型中微信小程序对promise的支持并不好，可以使用自己的promise
 
 > 取消网络请求
 * 基础库 1.4.0 开始支持，低版本需做兼容处理,返回一个 requestTask 对象，通过 requestTask，可中断请求任务。
@@ -244,15 +245,6 @@ const requestTask = wx.request({
 
 requestTask.abort() // 取消请求任务
 ```
-> wx.request方法并发数问题的解决方案。
-* promise
-```
-
-```
-* 管理请求队列
-```
-
-```
 
 ##### 性能优化
 * 分包加载，按需进行加载
@@ -264,6 +256,4 @@ requestTask.abort() // 取消请求任务
 * 控制代码包内图片资源
 * 代码包大小的优化
 
-
-
-
+#### 
