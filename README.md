@@ -244,12 +244,15 @@ const requestTask = wx.request({
 
 requestTask.abort() // 取消请求任务
 ```
-> wx.request 方法的不支持 Promise 和并发数问题的解决方案。
+> wx.request方法并发数问题的解决方案。
 * promise
 ```
 
 ```
 * 管理请求队列
+```
+
+```
 
 ##### 性能优化
 * 分包加载，按需进行加载
@@ -260,8 +263,6 @@ requestTask.abort() // 取消请求任务
 * 及时清理没有使用到的代码和资源
 * 控制代码包内图片资源
 * 代码包大小的优化
-##### 前后端独立开发
-#### 兼容
 
 
 
