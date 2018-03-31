@@ -219,11 +219,49 @@ Component({
 
 ### 更好的调用接口
 > wx.request
-### 微信小程序开发问题
-   1，性能优化
-   2，前后端独立开发
-   3，调试，iOS、Android 和 用于调试的开发者工具。
-   4，上线
+* 默认超时时间和最大超时时间都是 60s
+* request、uploadFile、downloadFile 的最大并发限制是 10 个
+* 网络请求的 referer header 不可设置。其格式固定为 https://servicewechat.com/{appid}/{version}/page-frame.html，其中 {appid} 为小程序的 appid，{version} 为小程序的版本号，版本号为 0 表示为开发版、体验版以及审核版本，版本号为 devtools 表示为开发者工具，其余为正式版本。
+* 小程序进入后台运行后（非置顶聊天），如果 5s 内网络请求没有结束，会回调错误信息 fail interrupted；在回到前台之前，网络请求接口调用都会无法调用。
+* 微信小程序默认情况下dataType为'json'，会尝试对响应的数据做一次JSON.parse
+
+> 取消网络请求
+* 基础库 1.4.0 开始支持，低版本需做兼容处理,返回一个 requestTask 对象，通过 requestTask，可中断请求任务。
+```
+const requestTask = wx.request({
+  url: 'test.php', //仅为示例，并非真实的接口地址
+  data: {
+     x: '' ,
+     y: ''
+  },
+  header: {
+      'content-type': 'application/json'
+  },
+  success: function(res) {
+    console.log(res.data)
+  }
+})
+
+requestTask.abort() // 取消请求任务
+```
+> wx.request 方法的不支持 Promise 和并发数问题的解决方案。
+* promise
+```
+
+```
+* 管理请求队列
+
+##### 性能优化
+* 分包加载，按需进行加载
+* 不要频繁地去setData,能合成一个setData尽量合成一个
+* 不需要视图更新的data不要使用setData
+* setData数据不要过大（当数据量过大时会增加脚本的编译执行时间，占用 WebView JS 线程）
+* 由于用户使用小程序是从CDN下载，并且目前小程序打包是会将工程下所有文件都打入代码包内（这个还是需要小程序那边优化，按需会好点），所以目前你代码包多放东西，意味着用户得多下资源，多耗费流量，首次打开速度也会变慢
+* 及时清理没有使用到的代码和资源
+* 控制代码包内图片资源
+* 代码包大小的优化
+##### 前后端独立开发
+#### 兼容
 
 
 
