@@ -122,12 +122,41 @@ Page({
 * 页面底部的 tabBar 由页面决定，即只要是定义为 tabBar 的页面，底部都有 tabBar。
 * 调用页面路由带的参数可以在目标页面的onLoad中获取。
 * 注意: 页面重定向（redirectTo）以及打开新页面（navigateTo），因为小程序限制了也页面栈最多只有5个元素，所以当你深度达到5个，再调用navigateTo想让新页面再入栈就会报错，所以官方建议是避免多层级的交互方式，或者使用wx.redirectTo
+``` 
+{
+  "pages":[
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/order/order",
+    "pages/user/user",
+    "pages/detail/detail"
+  ],
+  ...
+}
+
+wx.navigateTo({
+  url: `../detail/detail?id=${id}`
+});
+
+``` 
 
 ### 模块化
 > require加载机制不同于nodejs，加了一些限制，比如不能用绝对路径，也不支持node_modules，所以如果要使用node_modules的内容需要手动拷贝到目录里
 * 模块只有通过 module.exports 或者 exports 才能对外暴露接口。
 * ES6转ES5使用import/export,小程序开发工具带有babel es6转es5设置，勾选即可
 * 注意： module.exports和exports 的区别
+``` 
+exports.setRequestUrl = function (app) {
+  ...
+}
+或者
+function setRequestUrl(app) {
+  ...
+}
+module.exports = {
+  setRequestUrl: setRequestUrl
+}
+``` 
 
 ### 组件
 > 框架为开发者提供了一系列基础组件，开发者可以通过组合这些基础组件进行快速开发,详见 [小程序文档-组件](https://developers.weixin.qq.com/miniprogram/dev/component/) 
@@ -135,14 +164,22 @@ Page({
 ### 模板
 >  wxml通过template可以实现复用,通过is属性动态决定渲染哪个模版, 并且有自己的作用域，只能使用传入的data(这点跟组件很相似）
 ``` 
-<!-- item.wxml -->
-<template name="item">
-  <text>{{text}}</text>
+<!-- dishItem.wxml -->
+<template name="dishItem">
+    <view data-id="{{id}}" bindtap="detail" class="fooditem">
+        <image src="{{src}}"/>
+        <text>{{name}}</text>
+    </view>
 </template>
 
+
 <!-- index.wxml -->
-<import src="item.wxml"/>
-<template is="item" data="{{text: 'forbar'}}"/>
+<import src="dishItem.wxml"/>
+<block wx:for="{{dishsList}}" wx:key="*this" class="scroll-view-item">
+      <template is="dishItem" data="{{...item}}"/>
+  </block>
+
+
 ``` 
 ### 自定义组件
 > 小程序基础库版本 1.6.3 开始，小程序支持简洁的组件化编程

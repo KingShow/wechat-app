@@ -3,7 +3,7 @@ const {DEVURL} = require('./app.config');
 const request = function (method, url, data = {}, success, fail) {
     wx.request({
         method,
-        url: `${DEVURL + url}`, //仅为示例，并非真实的接口地址
+        url: `${DEVURL + url}`,
         data: data,
         header: {
             'Content-Type': 'multipart/form-data' // 默认值
@@ -25,7 +25,7 @@ const _request = function (method, url, data = {}) {
     return new Promise((resolve, reject) => {
         wx.request({
             method,
-            url: `${DEVURL + url}`, //仅为示例，并非真实的接口地址
+            url: `${DEVURL + url}`,
             data: data,
             header: {
                 'Content-Type': 'multipart/form-data' // 默认值
