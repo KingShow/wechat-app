@@ -21,7 +21,29 @@ const request = function (method, url, data = {}, success, fail) {
         }
     })
 }
-
+const _request = function (method, url, data = {}) {
+    return new Promise((resolve, reject) => {
+        wx.request({
+            method,
+            url: `${DEVURL + url}`, //仅为示例，并非真实的接口地址
+            data: data,
+            header: {
+                'Content-Type': 'multipart/form-data' // 默认值
+            },
+            success: function(res) {
+                //成功回调
+                resolve(res.data);
+            },
+            fail: function (err) {
+                reject(err);
+            },
+            complete: function (res) {
+                console.log('complete', res);
+            }
+        })
+    }) 
+}
 module.exports = {
     request,
+    _request,
 }

@@ -1,14 +1,18 @@
 //app.js
-import {getDishs} from './request_all';
+import {getDishs, getData} from './request_all';
 App({
   onLaunch: function() {
     //调用API从本地缓存中获取数据
     var logs = wx.getStorageSync('logs') || [];
     logs.unshift(Date.now());
     wx.setStorageSync('logs', logs);
-    getDishs((res) => {
-      console.log(res, 'res');
-    });
+    // getDishs((res) => {
+    //   console.log(res, 'res');
+    // });
+    const dataPromise = getData();
+    dataPromise.then((data) => {
+      console.log(data, 'data');
+    })
   },
 
   getUserInfo: function(cb) {

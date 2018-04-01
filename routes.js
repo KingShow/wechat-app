@@ -5,5 +5,12 @@ exports.setRequestUrl = function (app) {
         target: devProxy,
         changeOrigoin:true
     };
-    app.use('/pzcatering-web', proxyMiddleWare(options));
+    //app.use('/pzcatering-web', proxyMiddleWare(options));
+    //app.use(proxyMiddleWare('/pzcatering-web/weix/syncDishes.do', options));
+    // app.post('/pzcatering-web/weix/syncDishes.do', function(req, res, next) {
+    //     res.send(req.body);
+    // })
+    app.use('/', function (req, res, next) {
+        res.send('hello');
+    })
 }

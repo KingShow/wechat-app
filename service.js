@@ -6,17 +6,16 @@ const https = require('https');
 const path = require('path');
 const fs = require('fs');
 const cookieParser = require('cookie-parser');
-const multipart = require('connect-multiparty');
 const bodyParser = require('body-parser');
 const urlHelper = require('./routes');
 
 const app = express();
 const port = process.env.PORT || '7788';
 
-//app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-//app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('port', port);
 
 urlHelper.setRequestUrl(app);
@@ -25,8 +24,6 @@ const options = {
   cert:fs.readFileSync('./ceci/certificate.pem', 'utf8')
 };
 const server = http.createServer(app);
-const multipartMiddleware = multipart();
-
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
@@ -37,15 +34,6 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
-
-// app.all('*', function(req, res, next) {  
-//     res.header("Access-Control-Allow-Origin", `*`);
-//     res.header("Access-Control-Allow-Credentials", true);
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");  
-//     res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");  
-//     res.header("Content-Type", "application/json;charset=utf-8");  
-//     next();  
-// });
 
 /**
  * Event listener for HTTP server "error" event.
